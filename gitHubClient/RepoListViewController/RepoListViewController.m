@@ -14,12 +14,16 @@
 #import "ReposManager.h"
 #import "CommitsViewController.h"
 
+
 static NSString *const TITLE = @"Repositories";
 
 static NSString *const NAME_OF_AUTH_BUTTON = @"Auth";
 static NSString *const NAME_OF_LOGOUT_BUTTON = @"Log out";
 
 static NSString *const REUSE_CELL_ID = @"REUSE_CELL_ID";
+
+static CGFloat const ESTIMATED_CELL_HEIGHT = 170;
+
 
 @interface RepoListViewController ()<GitHubAutharisationDelegate, UITableViewDelegate, UITableViewDataSource, ReposManagerDelegate>
 
@@ -32,7 +36,9 @@ static NSString *const REUSE_CELL_ID = @"REUSE_CELL_ID";
 
 @property (nonatomic, strong) ReposManager *reposManager;
 @property (nonatomic, strong) NSArray <Repo *> *reposArray;
+
 @end
+
 
 @implementation RepoListViewController
 
@@ -58,7 +64,7 @@ static NSString *const REUSE_CELL_ID = @"REUSE_CELL_ID";
     tableView.delegate = self;
     tableView.dataSource = self;
     tableView.rowHeight = UITableViewAutomaticDimension;
-    tableView.estimatedRowHeight = 170;
+    tableView.estimatedRowHeight = ESTIMATED_CELL_HEIGHT;
     tableView.tableFooterView = [UIView new];
     
     [self.view addSubview:tableView];
@@ -96,6 +102,7 @@ static NSString *const REUSE_CELL_ID = @"REUSE_CELL_ID";
     self.navigationItem.rightBarButtonItem = self.autharisationButton;
 }
 
+
 #pragma mark - Buttons Clicked
 
 - (void)autharisationButtonClicked
@@ -117,6 +124,7 @@ static NSString *const REUSE_CELL_ID = @"REUSE_CELL_ID";
 {
     [self.reposManager getRepos];
 }
+
 
 #pragma mark - Customs Accessors
 
@@ -149,11 +157,11 @@ static NSString *const REUSE_CELL_ID = @"REUSE_CELL_ID";
     return _reposManager;
 }
 
+
 #pragma mark - Private Methods
 
 - (void)changeNameOfAuthButton
 {
-    NSLog(@"%@", self.autharisationButton.title);
     if (self.isLogon)
     {
         self.autharisationButton.title = NAME_OF_LOGOUT_BUTTON;
@@ -172,6 +180,7 @@ static NSString *const REUSE_CELL_ID = @"REUSE_CELL_ID";
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+
 #pragma mark - TableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -189,7 +198,7 @@ static NSString *const REUSE_CELL_ID = @"REUSE_CELL_ID";
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 170;
+    return ESTIMATED_CELL_HEIGHT;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -208,7 +217,7 @@ static NSString *const REUSE_CELL_ID = @"REUSE_CELL_ID";
 
 - (void)autharisationDidCancel:(GitHubAutharisation *)GitHubAutharisation
 {
-    
+    NSLog(@"Auth canceled");
 }
 
 - (void)autharisationDidDone:(GitHubAutharisation *)GitHubAutharisation withToken:(NSString *)token
@@ -221,6 +230,7 @@ static NSString *const REUSE_CELL_ID = @"REUSE_CELL_ID";
 {
     [self showAlertWithTitle:@"Autharisation error!" withMessage:error.localizedDescription];
 }
+
 
 #pragma mark - ReposManagerDelegate
 
@@ -236,4 +246,5 @@ static NSString *const REUSE_CELL_ID = @"REUSE_CELL_ID";
     [self.tableView.refreshControl endRefreshing];
     [self showAlertWithTitle:@"Repos load error!" withMessage:error.localizedDescription];
 }
+
 @end

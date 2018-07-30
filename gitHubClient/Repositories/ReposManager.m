@@ -41,7 +41,6 @@
 
 + (NSArray <Repo *> *)parseResponseToReposArray:(NSArray *)response
 {
-    NSLog(@"%@", response);
     NSMutableArray *reposMutableArray = [NSMutableArray new];
     for (NSDictionary *repoInfo in response)
     {

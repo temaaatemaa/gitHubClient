@@ -12,6 +12,7 @@
 
 
 static CGFloat const MAIN_OFFSET = 10;
+
 @interface CommitsTableViewCell()
 
 @property (nonatomic, strong) UILabel *commitHashLabel;

@@ -12,6 +12,11 @@
 #import "NetworkService.h"
 #import "UIImage+Size.h"
 
+
+static CGFloat const MAIN_OFFSET = 10;
+static CGFloat const IMAGE_SIZE = 50;
+
+
 @interface RepoTableViewCell()
 
 @property (nonatomic, strong) UIImageView *authorAvatarImageView;
@@ -65,37 +70,37 @@
 - (void)updateConstraints
 {
     [self.authorAvatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@50);
-        make.height.equalTo(@50).with.priorityHigh();
-        make.top.equalTo(self.contentView).with.offset(8);
-        make.left.equalTo(self.contentView).with.offset(8);
+        make.width.equalTo(@(IMAGE_SIZE));
+        make.height.equalTo(@(IMAGE_SIZE)).with.priorityHigh();
+        make.top.equalTo(self.contentView).with.offset(MAIN_OFFSET);
+        make.left.equalTo(self.contentView).with.offset(MAIN_OFFSET);
     }];
     
     [self.authorNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView).with.offset(8);
-        make.left.equalTo(self.authorAvatarImageView.mas_right).with.offset(8);
-        make.right.equalTo(self.contentView).with.offset(-8);
+        make.top.equalTo(self.contentView).with.offset(MAIN_OFFSET);
+        make.left.equalTo(self.authorAvatarImageView.mas_right).with.offset(MAIN_OFFSET);
+        make.right.equalTo(self.contentView).with.offset(-MAIN_OFFSET);
     }];
     
     [self.repoNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.authorNameLabel.mas_bottom).with.offset(0);
         make.height.equalTo(self.authorNameLabel);
         make.bottom.equalTo(self.authorAvatarImageView);
-        make.left.equalTo(self.authorAvatarImageView.mas_right).with.offset(8);
-        make.right.equalTo(self.contentView).with.offset(-8);
+        make.left.equalTo(self.authorAvatarImageView.mas_right).with.offset(MAIN_OFFSET);
+        make.right.equalTo(self.contentView).with.offset(-MAIN_OFFSET);
     }];
     
     [self.descriptionOfRepoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.authorAvatarImageView.mas_bottom).with.offset(8);
-        make.left.equalTo(self.contentView).with.offset(8);
-        make.right.equalTo(self.contentView).with.offset(-8);
-        make.height.equalTo(@50).with.priorityHigh();
+        make.top.equalTo(self.authorAvatarImageView.mas_bottom).with.offset(MAIN_OFFSET);
+        make.left.equalTo(self.contentView).with.offset(MAIN_OFFSET);
+        make.right.equalTo(self.contentView).with.offset(-MAIN_OFFSET);
+        make.height.equalTo(@(IMAGE_SIZE)).with.priorityHigh();
     }];
     
     [self.watchersLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.descriptionOfRepoLabel.mas_bottom).with.offset(8);
-        //make.left.equalTo(self.contentView).with.offset(8);
-        make.bottom.equalTo(self.contentView).with.offset(-8);
+        make.top.equalTo(self.descriptionOfRepoLabel.mas_bottom).with.offset(MAIN_OFFSET);
+        //make.left.equalTo(self.contentView).with.offset(MAIN_OFFSET);
+        make.bottom.equalTo(self.contentView).with.offset(-MAIN_OFFSET);
     }];
     
     [self.watchersCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -107,14 +112,14 @@
     [self.forksLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.watchersLabel);
         make.bottom.equalTo(self.watchersLabel);
-        make.left.equalTo(self.watchersCountLabel.mas_right).with.offset(8);
+        make.left.equalTo(self.watchersCountLabel.mas_right).with.offset(MAIN_OFFSET);
     }];
     
     [self.forksCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.watchersLabel);
         make.bottom.equalTo(self.watchersLabel);
         make.left.equalTo(self.forksLabel.mas_right).with.offset(5);
-        make.right.equalTo(self.contentView).with.offset(-8);
+        make.right.equalTo(self.contentView).with.offset(-MAIN_OFFSET);
     }];
     
     [super updateConstraints];
@@ -124,11 +129,8 @@
 {
     NetworkService *service = [NetworkService new];
     
-    [UIImage resizeImage:[UIImage imageNamed:@"nophoto"] forSize:CGSizeMake(50, 50) OnGlobalQueueWithCmplitionOnMainThread:^(id  _Nullable image) {
-        self.authorAvatarImageView.image = image;
-    }];
     [service downloadPhotoWithURL:repo.repoOwnerAvatarUrlString withComplitionBlock:^(id  _Nullable image) {
-        [UIImage resizeImage:image forSize:CGSizeMake(50, 50) OnGlobalQueueWithCmplitionOnMainThread:^(id  _Nullable image) {
+        [UIImage resizeImage:image forSize:CGSizeMake(IMAGE_SIZE, IMAGE_SIZE) OnGlobalQueueWithCmplitionOnMainThread:^(id  _Nullable image) {
             self.authorAvatarImageView.image = image;
         }];
     }];

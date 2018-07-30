@@ -43,7 +43,6 @@
 
 + (NSArray <Commit *> *)parseResponseToCommitsArray:(NSArray *)response
 {
-    NSLog(@"%@", response);
     NSMutableArray *commitMutableArray = [NSMutableArray new];
     for (NSDictionary *commitInfo in response)
     {

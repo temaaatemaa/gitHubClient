@@ -18,13 +18,16 @@ static NSString *const REUSE_COMMITS_CELL_ID = @"REUSE_COMMITS_CELL_ID";
 
 static CGFloat const ESTIMATED_CELL_HEIGHT = 70;
 
+
 @interface CommitsViewController ()<UITableViewDelegate, UITableViewDataSource, CommitsManagerDelegate>
+
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) CommitsManager *commitsManager;
 @property (nonatomic, strong) NSArray <Commit *> *commitsArray;
 
 @end
+
 
 @implementation CommitsViewController
 
@@ -61,6 +64,7 @@ static CGFloat const ESTIMATED_CELL_HEIGHT = 70;
     return tableView;
 }
 
+
 #pragma mark - Customs Accessors
 
 - (CommitsManager *)commitsManager
@@ -78,6 +82,7 @@ static CGFloat const ESTIMATED_CELL_HEIGHT = 70;
     _choosenRepo = choosenRepo;
     [self.commitsManager getCommitsForRepo:choosenRepo];
 }
+
 
 #pragma mark - Private Methods
 
@@ -98,6 +103,7 @@ static CGFloat const ESTIMATED_CELL_HEIGHT = 70;
 {
     [self.commitsManager getCommitsForRepo:self.choosenRepo];
 }
+
 
 #pragma mark - TableViewDelegate
 
@@ -120,6 +126,7 @@ static CGFloat const ESTIMATED_CELL_HEIGHT = 70;
     return ESTIMATED_CELL_HEIGHT;
 }
 
+
 #pragma mark - CommitsManagerDelegate
 
 - (void)commitsDidLoad:(CommitsManager *)commitsManager withReposArray:(NSArray<Commit *> *)commitsArray
@@ -134,4 +141,5 @@ static CGFloat const ESTIMATED_CELL_HEIGHT = 70;
     [self.tableView.refreshControl endRefreshing];
     [self showAlertWithTitle:@"Commits load error!" withMessage:error.localizedDescription];
 }
+
 @end
