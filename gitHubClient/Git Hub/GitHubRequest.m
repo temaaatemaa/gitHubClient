@@ -12,7 +12,7 @@
 
 @interface GitHubRequest()
 
-@property (nonatomic, strong) NSString *token;
+@property (nonatomic, copy) NSString *token;
 
 @end
 

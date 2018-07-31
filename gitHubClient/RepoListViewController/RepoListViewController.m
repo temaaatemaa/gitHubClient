@@ -35,7 +35,7 @@ static CGFloat const ESTIMATED_CELL_HEIGHT = 170;
 @property (nonatomic, assign) BOOL isLogon;
 
 @property (nonatomic, strong) ReposManager *reposManager;
-@property (nonatomic, strong) NSArray <Repo *> *reposArray;
+@property (nonatomic, copy) NSArray <Repo *> *reposArray;
 
 @end
 

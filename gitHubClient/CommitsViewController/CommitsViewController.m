@@ -24,7 +24,7 @@ static CGFloat const ESTIMATED_CELL_HEIGHT = 70;
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) CommitsManager *commitsManager;
-@property (nonatomic, strong) NSArray <Commit *> *commitsArray;
+@property (nonatomic, copy) NSArray <Commit *> *commitsArray;
 
 @end
 

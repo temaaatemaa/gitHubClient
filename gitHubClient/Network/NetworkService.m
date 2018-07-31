@@ -11,7 +11,7 @@
 
 @interface NetworkService()
 
-@property (nonatomic,copy) NSCache *cash;
+@property (nonatomic, copy) NSCache *cash;
 
 @end
 
